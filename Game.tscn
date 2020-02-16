@@ -1,0 +1,109 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Assets/SpaceShipNormal.png" type="Texture" id=1]
+[ext_resource path="res://Assets/background.jpg" type="Texture" id=2]
+[ext_resource path="res://ScriptsBullets.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Meteor.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Enemy1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Meteors.gd" type="Script" id=6]
+[ext_resource path="res://Scripts.Player.gd" type="Script" id=7]
+[ext_resource path="res://SpritesHUD.gd" type="Script" id=8]
+[ext_resource path="res://Scenes/Enemy2.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/EnemyBullet.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scripts/Enemies.gd" type="Script" id=11]
+
+[node name="Game" type="Node2D"]
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Background"]
+
+[node name="background" type="Sprite" parent="Background/Sprite"]
+position = Vector2( 510, 335.679 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Bullets" type="Node2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="Timer" type="Timer" parent="Bullets"]
+autostart = true
+
+[node name="Enemy Bullets" type="Node2D" parent="."]
+
+[node name="EnemyBullet" parent="Enemy Bullets" instance=ExtResource( 10 )]
+collision_layer = 5
+collision_mask = 5
+
+[node name="Player" type="KinematicBody2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="Player"]
+position = Vector2( 289, 334 )
+scale = Vector2( 0.4, 0.4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="SpaceShipNormal" type="Sprite" parent="Player/Sprite"]
+position = Vector2( 503, 500.679 )
+texture = ExtResource( 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player/Sprite"]
+position = Vector2( 503, 500.679 )
+polygon = PoolVector2Array( 5, -67.7, 5, -63.4, 9, -53.4, 9, -32, 13, -25.6, 13, -5, 27.1, 16, 27.7, 16, 30.5, 18.1, 51, 9.6, 51, -32.6, 65, -35.4, 65, -32, 76, 9.7, 76, 15, 77.2, 29, 75.2, 29, 70, 40.4, 70, 67.8, 61.9, 68, 61, 55.4, 61, 61, 58.8, 61, 56.5, 63.4, 54, 62.3, 54, 60.4, 50.3, 42, 38.7, 42, 36.7, 53, 33.4, 53, 11.4, 63, -17.4, 63, -41, 53.3, -41, 52.1, -44, 50.1, -44, 42, -58, 42, -60.2, 61, -62.2, 61, -64.5, 63.4, -67, 62.3, -67, 60.4, -67.7, 57.1, -69.1, 68, -78, 68, -78, 39.6, -84, 28.5, -84, 19.4, -86.2, 15, -83.7, 15, -73.6, -33, -58, -33, -58, 9.2, -35.8, 18.1, -19, -3.7, -19, -24.6, -15, -30.6, -15, -52.4, -10, -65.4, -10, -68, 3.3, -68 )
+
+[node name="Meteors" type="Node2D" parent="."]
+script = ExtResource( 6 )
+
+[node name="RigidBody2D" parent="Meteors" instance=ExtResource( 4 )]
+
+[node name="Timer" type="Timer" parent="Meteors"]
+autostart = true
+
+[node name="Enemies" type="Node2D" parent="."]
+script = ExtResource( 11 )
+
+[node name="Enemy1" parent="Enemies" instance=ExtResource( 5 )]
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 9 )]
+
+[node name="Timer" type="Timer" parent="Enemies"]
+autostart = true
+
+[node name="Explosions" type="Node2D" parent="."]
+
+[node name="HUD" type="Node2D" parent="."]
+script = ExtResource( 8 )
+
+[node name="Health" type="Label" parent="HUD"]
+margin_left = 17.0
+margin_top = 12.0
+margin_right = 110.0
+margin_bottom = 39.0
+rect_pivot_offset = Vector2( -383, 235.679 )
+text = "Health:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="HUD"]
+margin_left = 899.0
+margin_top = 14.0
+margin_right = 992.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( -383, 235.679 )
+text = "Score:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="health_changed" from="Player" to="HUD" method="_on_Player_health_changed"]
+[connection signal="score_changed" from="Player" to="HUD" method="_on_Player_score_changed"]
+[connection signal="timeout" from="Meteors/Timer" to="Meteors" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Enemies/Timer" to="Enemies" method="_on_Timer_timeout"]
