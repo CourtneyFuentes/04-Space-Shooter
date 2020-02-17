@@ -13,12 +13,10 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Sprite" type="Sprite" parent="."]
-
-[node name="Asteroid" type="Sprite" parent="Sprite"]
+[node name="Asteroid" type="Sprite" parent="."]
 scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 1 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 scale = Vector2( 0.7, 0.7 )
 polygon = PoolVector2Array( 8.5, -31.7, 15.4, -24, 21.6, -24, 40.5, -21.8, 40.5, -20.1, 49.5, -14.1, 49.5, -4.8, 47.9, 3.1, 53.3, 19, 50.9, 19, 48.9, 25, 47.3, 25, 40.3, 32, 37, 32, 33.5, 33.4, 33.5, 34.9, 21.3, 46, 17.3, 46, 3.5, 43.4, -12.5, 46.4, -12.5, 44.8, -30.5, 42.8, -30.5, 40.7, -49.9, 19.4, -48.8, 17, -47.4, 17, -43.5, 12.3, -43.5, -0.299999, -35.9, -22, -33.9, -22, -10.8, -30, -7, -30, -4.5, -28.8, 0.5, -32.1, 0.5, -34, 8.5, -34 )
