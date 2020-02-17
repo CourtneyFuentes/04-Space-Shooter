@@ -8,6 +8,6 @@ func _ready():
 
 
 func _on_Timer_timeout():
-	if randi() < probability:
+	if randf() < probability:
 		var m = Meteor.instance()
 		add_child(m)

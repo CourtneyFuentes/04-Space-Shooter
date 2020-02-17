@@ -4,7 +4,7 @@ export var limit_y = 350
 export var score = 10
 export var speed = 2.0
 export var move_probability = 0.02
-export var fire_probability = 0.05
+export var fire_probability = 0.2
 
 onready var EnemyBullet = load("res://Scenes/EnemyBullet.tscn")
 
@@ -34,9 +34,9 @@ func _physics_process(delta):
 
 
 func _on_Timer_timeout():
-	if randi() < move_probability:
+	if randf() < move_probability:
 		get_new_position()
-	if randi() < fire_probability:
+	if randf() < fire_probability:
 		var b = EnemyBullet.instance()
 		b.position = position
 		b.position.y += 25
